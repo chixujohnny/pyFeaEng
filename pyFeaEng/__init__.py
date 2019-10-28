@@ -48,14 +48,40 @@ def stringPreprocessing(fea_string,
 
     # add ',' ?
     if if_addComma == True:
-        for item in fea_list:
-            item = item + ','
+        for i, item in enumerate(fea_list):
+            if i < len(fea_list) - 1:
+                item = item + ','
 
     # add '\n' ?
     if if_addEnter == True:
-        for item in fea_list:
-            item = item + '\n'
+        for i, item in enumerate(fea_list):
+            if i < len(fea_list) - 1:
+                item = item + '\n'
+
+    ret = ''
+    for item in fea_list:
+        ret += item
+
+    return ret
 
 
 
 
+# ----------------------------------- #
+#  extract your features in a string  #
+# ----------------------------------- #
+def featuresExtractor(fea_string,
+                      fea_split,    # What symbol split your features, like ',' or ',\n' ,etc.
+                      keyword       # Features you want to extract which has this keyword
+                     ):
+    fea_list = fea_string.split(fea_split)
+    ret = ''
+
+    # Extractor
+    for i, item in enumerate(fea_list):
+        if keyword in item:
+            ret += item
+        if i < len(fea_list) - 1:
+            ret = ret + ',\n'
+
+    return ret
