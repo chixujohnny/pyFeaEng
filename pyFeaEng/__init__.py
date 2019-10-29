@@ -15,17 +15,21 @@
 # 02110-1301  USA
 ######################### END LICENSE BLOCK #########################
 
+# coding: utf-8
 
 # ----------------------------------- #
 # pre-processing your features string #
 # ----------------------------------- #
-def stringPreprocessing(fea_string,
-                        fea_split,            # What symbol split your features, like ',' or ',\n' ,etc.
-                        if_delSpace = True,   # Do you want to remove spaces on both sides of the feature?
-                        if_addComma = True,   # Do you want to add a ',' in the end of the line?
-                        if_addEnter = True,   # Do you want to add a '\n' in the end of the line?
-                        fea_intercept = [],   # Intercept the string between the two strings in each feature as a new feature, such as ['as ', ',']
-                        ):
+# 对特征字符串进行预处理
+def stringPreprocessing(
+        fea_string,
+        fea_split,            # What symbol split your features, like ',' or ',\n' ,etc.
+        if_delSpace = True,   # Do you want to remove spaces on both sides of the feature?
+        if_addComma = True,   # Do you want to add a ',' in the end of the line?
+        if_addEnter = True,   # Do you want to add a '\n' in the end of the line?
+        if_outputList = True, # Using LIST to output your features.
+        fea_intercept = [],   # Intercept the string between the two strings in each feature as a new feature, such as ['as ', ',']
+        ):
     fea_list = []
 
     # fea_intercept first
@@ -58,22 +62,26 @@ def stringPreprocessing(fea_string,
             if i < len(fea_list) - 1:
                 item = item + '\n'
 
-    ret = ''
-    for item in fea_list:
-        ret += item
+    # return
+    if if_outputList == False:
+        ret = ''
+        for item in fea_list:
+            ret += item
 
-    return ret
-
-
+        return ret
+    else:
+        return fea_list
 
 
 # ----------------------------------- #
 #  extract your features in a string  #
 # ----------------------------------- #
-def featuresExtractor(fea_string,
-                      fea_split,    # What symbol split your features, like ',' or ',\n' ,etc.
-                      keyword       # Features you want to extract which has this keyword
-                     ):
+# 仅抽取特征字符串中特定的行（比如只抽取含有'max'关键字的行）
+def featureExtractor(
+        fea_string,
+        fea_split,    # What symbol split your features, like ',' or ',\n' ,etc.
+        keyword       # Features you want to extract which has this keyword
+        ):
     fea_list = fea_string.split(fea_split)
     ret = ''
 
@@ -85,3 +93,12 @@ def featuresExtractor(fea_string,
             ret = ret + ',\n'
 
     return ret
+
+
+# ----------------------------------- #
+#          feature engineering        #
+# ----------------------------------- #
+# 特征工程中需要用到的代码
+def featureEngineering(
+
+        ):
